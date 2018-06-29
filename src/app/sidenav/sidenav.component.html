@@ -1,0 +1,54 @@
+
+
+<mat-list>
+    <mat-list-item>
+      <h4 mat-line>
+        
+        <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/dashboard">
+          <mat-icon>home</mat-icon> Home
+        </button>
+      </h4>
+    </mat-list-item>
+ 
+    <mat-divider></mat-divider>
+  
+    <mat-list-item>
+        <button mat-icon-button  *ngIf="auth.isLoggednIn()" routerLink="/projects">
+          <mat-icon>account_balance</mat-icon> <span>Projects</span>      
+        </button>
+      
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+  
+    <mat-list-item>
+        <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/contacts">
+          <mat-icon>supervisor_account</mat-icon> Contacts
+        </button>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+        <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/gantt">
+          <mat-icon>timeline</mat-icon> Gannt Chart
+        </button>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+  
+    <mat-list-item>
+        <button mat-icon-button *ngIf="auth.isLoggednIn()" (click)="auth.logout()">
+            <mat-icon>exit_to_app</mat-icon> Log out
+          </button>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+        <button mat-icon-button *ngIf="!auth.isLoggednIn()" routerLink="/register">
+          <mat-icon>person_add</mat-icon> Register
+        </button>
+    </mat-list-item>
+  
+  </mat-list>

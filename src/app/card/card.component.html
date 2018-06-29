@@ -1,0 +1,21 @@
+/* Card component */
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title class="md-card-title">{{firstName}}</mat-card-title>
+  </mat-card-header>
+
+  <!-- <img md-card-image [src]="cardImagePath"> -->
+
+  <mat-card-content>
+    <div class="card-text-content">
+      {{surname}}
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button >ADAUGA IN COS</button>
+    <button mat-button >DETALII</button>
+  </mat-card-actions>
+
+</mat-card>

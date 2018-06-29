@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <img src="../../assets/images/insula.png ">  
+  <span class="demo-toolbar"></span>  
+  <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/dashboard">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="!auth.isLoggednIn()" routerLink="/login">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="!auth.isLoggednIn()" routerLink="/register">
+    <mat-icon>person_add</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/projects">
+    <mat-icon>account_balance</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/contacts">
+    <mat-icon>supervisor_account</mat-icon>
+  </button>
+  <!-- <button mat-icon-button *ngIf="auth.isLoggednIn()" routerLink="/user">
+    <mat-icon>supervisor_account</mat-icon>
+  </button> -->
+  <button mat-icon-button *ngIf="auth.isLoggednIn()" (click)="auth.logout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+  <!-- <button mat-button *ngIf="!auth.isLoggednIn()" routerLink="/register">Register</button>  
+  <button mat-button *ngIf="auth.isLoggednIn()" routerLink="/projects">Projects</button>
+  <button mat-button *ngIf="auth.isLoggednIn()" routerLink="/user">User</button>
+  <button mat-button *ngIf="auth.isLoggednIn()" (click)="auth.logout()">Logout</button> -->
+</mat-toolbar>

@@ -1,0 +1,188 @@
+<h5>{{title}}</h5>
+
+
+<button kendoButton (click)="onToolbarButtonClick()" [primary]="true">Toolbar</button>
+<button [style.margin-left]="'5px'" kendoButton (click)="onSortableButtonClick()" [primary]="true">Sortable (Drag & Drop)</button>
+<button [style.margin-left]="'5px'" kendoButton (click)="onSplitterButtonClick()" [primary]="true">Splitter, Panel & Tabs</button>
+<button [style.margin-left]="'5px'" kendoButton (click)="onProductsGridButtonClick()" [primary]="true">Products Grid</button>
+<button [style.margin-left]="'5px'" kendoButton (click)="onContactsGridButtonClick()" [primary]="true">Contacts Grid</button>
+
+
+<div *ngIf="showProductsGrid" [style.margin-top]="'30px'">
+<kendo-grid [kendoGridBinding]="products" [pageable]="true" [pageSize]="10" [height]="490">
+    <ng-template kendoGridToolbarTemplate>
+        <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
+    </ng-template>
+    <kendo-grid-column field="ProductID" title="ID" width="40">
+    </kendo-grid-column>
+    <kendo-grid-column field="ProductName" title="Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="Category.CategoryName" title="Category">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitPrice" title="Price" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitsInStock" title="In stock" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-pdf fileName="Products.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
+        <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+        <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+         <div class="page-template">
+            <div class="header">
+              <div style="float: right">Page {{ pageNum }} of {{ totalPages }}</div>
+              Multi-page grid with automatic page breaking
+            </div>
+            <div class="footer">
+              Page {{ pageNum }} of {{ totalPages }}
+            </div>
+          </div>
+        </ng-template>
+    </kendo-grid-pdf>
+</kendo-grid>
+</div>
+
+<div *ngIf="showContactsGrid" [style.margin-top]="'30px'">
+  <kendo-grid [kendoGridBinding]="contacts" [pageable]="true" [pageSize]="10" [height]="490">
+    <ng-template kendoGridToolbarTemplate>
+        <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
+    </ng-template>
+    <kendo-grid-column field="firstName" title="First Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="surname" title="Last Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="primaryEmail" title="Email">
+    </kendo-grid-column>
+    <!-- <kendo-grid-column field="UnitPrice" title="Price" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitsInStock" title="In stock" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="recordStatus" title="Status" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+        </ng-template>
+    </kendo-grid-column> -->
+    <kendo-grid-pdf fileName="Products.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
+        <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+        <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+        <div class="page-template">
+            <div class="header">
+              <div style="float: right">Page {{ pageNum }} of {{ totalPages }}</div>
+              Multi-page grid with automatic page breaking
+            </div>
+            <div class="footer">
+              Page {{ pageNum }} of {{ totalPages }}
+            </div>
+          </div>
+        </ng-template>
+    </kendo-grid-pdf>
+  </kendo-grid>
+</div>
+
+
+<div *ngIf="showToolbar" [style.margin-top]="'30px'">
+<kendo-toolbar>
+    <kendo-toolbar-button [text]="'Button'"></kendo-toolbar-button>
+    <kendo-toolbar-button [text]="'Toggle'" [togglable]="true"></kendo-toolbar-button>
+    <kendo-toolbar-splitbutton
+        [text]="'Severity'"
+        [data]="splitButtonData">
+    </kendo-toolbar-splitbutton>
+    <kendo-toolbar-dropdownbutton
+        [text]="'DropDownButton'"
+        [data]="dropdownButtonData">
+    </kendo-toolbar-dropdownbutton>
+    <kendo-toolbar-buttongroup>
+        <kendo-toolbar-button [togglable]="true" [icon]="'align-left'"></kendo-toolbar-button>
+        <kendo-toolbar-button [togglable]="true" [icon]="'align-center'"></kendo-toolbar-button>
+        <kendo-toolbar-button [togglable]="true" [icon]="'align-right'"></kendo-toolbar-button>
+        <kendo-toolbar-button [togglable]="true" [icon]="'align-justify'"></kendo-toolbar-button>
+    </kendo-toolbar-buttongroup>
+</kendo-toolbar>
+</div>
+
+<div *ngIf="showSortable" [style.margin-top]="'30px'">
+<div class="example-config">
+    <h6>Items: {{items | json}}</h6>
+</div>
+
+<div class="well container">
+    <kendo-sortable
+        [navigatable]="true"
+        [animation] = "true"
+        [data]="items"
+        class="row"
+        itemClass="item col-xs-6 col-sm-3"
+        activeItemClass="item col-xs-6 col-sm-3 active">
+    </kendo-sortable>
+</div>
+</div>
+
+<div *ngIf="showSplitter" [style.margin-top]="'30px'">
+<div class="example-wrapper container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 example-col">
+        <p>Splitter</p>
+        <kendo-splitter orientation="horizontal" style="height: 360px;">
+            <kendo-splitter-pane size="50%" min="40%">
+                <p>PanelBar</p>
+                <kendo-panelbar>
+                  <kendo-panelbar-item title="Public Profile">
+                    <kendo-panelbar-item title="Real Person"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="Johnny"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="Hashbone"></kendo-panelbar-item>                    
+                  </kendo-panelbar-item>
+                  <kendo-panelbar-item title="Personal Profile">
+                    <kendo-panelbar-item title="Male"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="Married"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="Mon, 26 May 1969"></kendo-panelbar-item>
+                  </kendo-panelbar-item>
+                  <kendo-panelbar-item title="Contact Details" [expanded]="true">
+                    <kendo-panelbar-item title="jhashbone@test.com"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="041234532"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="984838233" [selected]="true"></kendo-panelbar-item>                    
+                  </kendo-panelbar-item>
+                  <kendo-panelbar-item title="Social Medial Details">
+                    <kendo-panelbar-item title="Facebook id"></kendo-panelbar-item>
+                    <kendo-panelbar-item title="Twitter id"></kendo-panelbar-item>                    
+                  </kendo-panelbar-item>
+                </kendo-panelbar>
+            </kendo-splitter-pane>
+
+            <kendo-splitter-pane min="40%">
+                <p>TabStrip</p>
+                <kendo-tabstrip>
+                  <kendo-tabstrip-tab [title]="'Finance'" [selected]="true">
+                    <ng-template kendoTabContent>
+                      <p>
+                          For your convenience all your payment milestones are listed below, so you’ll never be surprised by an invoice. 
+                      </p>
+                      <p>
+                          Payment methods are outlined in the How to Pay section.
+                      </p>
+                    </ng-template>
+                  </kendo-tabstrip-tab>
+                  <kendo-tabstrip-tab [title]="'Resources'">
+                    <ng-template kendoTabContent>
+                      <p>
+                        Basketball is a sport that is played by two teams of five players on a rectangular court. The objective is to shoot a ball through a hoop 18 inches (46 cm) in diameter and mounted at a height of 10 feet (3.048 m) to backboards at each end of the court. The game was invented in 1891 by Dr. James Naismith, who would be the first basketball coach of the Kansas Jayhawks, one of the most successful programs in the game's history.
+                      </p>
+                    </ng-template>
+                  </kendo-tabstrip-tab>
+                  <kendo-tabstrip-tab [title]="'Appointments'">
+                    <ng-template kendoTabContent>
+                      <p>
+                          There are currently no scheduled appointments for this project.
+                      </p>
+                    </ng-template>
+                  </kendo-tabstrip-tab>
+                </kendo-tabstrip>
+            </kendo-splitter-pane>
+        </kendo-splitter>
+      </div>
+    </div>
+  </div>
+</div>

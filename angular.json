@@ -23,7 +23,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/scss/all.scss"
+              },
+              "src/styles.css",
+              "src/theme.scss"
             ],
             "scripts": []
           },
@@ -72,7 +76,11 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/scss/all.scss"
+              },
+              "src/styles.css",
+              "src/theme.scss"
             ],
             "scripts": [],
             "assets": [

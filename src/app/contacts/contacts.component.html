@@ -1,0 +1,151 @@
+
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <button mat-icon-button color="primary" (click)="toggleCardView()">
+      <mat-icon *ngIf="showCardView">view_module</mat-icon>
+      <mat-icon *ngIf="!showCardView">list</mat-icon>
+    </button>
+
+
+  <mat-grid-list *ngIf="showCardView" cols="4"  rowHeight="200px" gutterSize="20px">
+      <mat-grid-tile  *ngFor="let contact of dataSource.data">
+        <mat-card  [style.border]="'1px solid #ddd'" >  
+          <table class="tblContacts" [style.border]="'1px solid #ddd'">
+        <tr>
+          <td [style.width]="'20%'" rowspan="4"><img class="mat-card-contact-image" [src]="contact.profilePhotoUrl"></td>
+          <td [style.width]="'40%'"><h5>{{contact.firstName}}  {{contact.surname}}</h5></td>
+          
+        </tr>
+        <tr>
+          <td [style.width]="'40%'">{{contact.primaryEmail}}</td>
+          
+        </tr>
+        <tr>
+            <td [style.width]="'40%'">{{contact.description}}</td>
+            
+          </tr>
+          <tr>              
+              <td [style.width]="'40%'">{{contact.contactTypeName}}</td>
+            </tr>
+      </table>
+          <!-- <table>
+            <tr>
+              <td rowspan="2"><img class="mat-card-contact-image" [src]="contact.profilePhotoUrl"></td>
+              <td>{{contact.firstName}}  {{contact.surname}}</td>
+            </tr>
+            <tr>
+              <td>{{contact.primaryEmail}}</td>
+            </tr>
+          </table> -->
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+    
+    <mat-card  *ngIf="showCardView">  
+      <table class="tblContacts" *ngFor="let contact of dataSource.data" [style.border]="'1px solid #ddd'">
+        <tr>
+          <td [style.width]="'8%'" rowspan="4"><img class="mat-card-contact-image" [src]="contact.profilePhotoUrl"></td>
+          <td [style.width]="'40%'"><h5>{{contact.firstName}}  {{contact.surname}}</h5></td>
+        </tr>
+        <tr>
+          <td [style.width]="'40%'">{{contact.primaryEmail}}</td>
+          
+        </tr>
+        <tr>
+            <td [style.width]="'40%'">{{contact.description}}</td>
+            
+          </tr>
+          <tr>
+              
+              <td [style.width]="'40%'">{{contact.contactTypeName}}</td>
+            </tr>
+      </table>
+  </mat-card>
+ 
+
+ 
+<mat-table *ngIf="!showCardView" #table [dataSource]="dataSource" matSort class="mat-elevation-z8" on-mouseleave="hoveredIndex=null">
+
+    <ng-container matColumnDef="profilePhotoUrl">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let element"><img class="mat-table-contact-image" [src]="element.profilePhotoUrl"></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contactId">
+          <mat-header-cell hidden *matHeaderCellDef mat-sort-header>Contact Id</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.contactId}} </mat-cell>
+        </ng-container>
+  
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.firstName}}  </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> Last Name </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.surname}}  </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="primaryEmail">
+        <mat-header-cell *matHeaderCellDef  mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.primaryEmail}}  </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef  mat-sort-header> Description </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.description}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="contactTypeName">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header> Contact Type </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.contactTypeName}}  </mat-cell>
+          </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+        
+
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="addNew()">
+            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
+  
+        <mat-cell *matCellDef="let row; let i=index;" >
+            
+                <kendo-toolbar *ngIf="i==hoveredIndex" >            
+                    <kendo-toolbar-dropdownbutton
+                        [text]="'Gender'"
+                        [data]="dropdownButtonData">
+                    </kendo-toolbar-dropdownbutton>   
+                    <kendo-toolbar-buttongroup>
+                        <kendo-toolbar-button [togglable]="true" [icon]="'align-left'"></kendo-toolbar-button>
+                        <kendo-toolbar-button [togglable]="true" [icon]="'align-center'"></kendo-toolbar-button>
+                        
+                    </kendo-toolbar-buttongroup>           
+                </kendo-toolbar>
+              
+
+          <button *ngIf="i==hoveredIndex" mat-icon-button color="accent" (click)="startEdit(i, row.contactId, row.firstName, row.surname, row.primaryEmail)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+  
+          <button *ngIf="i==hoveredIndex" mat-icon-button color="warn" (click)="deleteItem(i, row.contactId, row.firstName, row.surname, row.primaryEmail)">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;let i=index"     on-mouseover="hoveredIndex=i"></mat-row>
+  </mat-table>
+
+   <!-- Material Datatable Pagination -->  
+   <mat-paginator #paginator  
+   [length]="dataSource.data.length"  
+   [pageIndex]="0"  
+   [pageSize]="10"  
+   [pageSizeOptions]="[25, 50, 100, 250]">  
+ </mat-paginator>  

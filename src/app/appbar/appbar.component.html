@@ -1,0 +1,9 @@
+<header>    
+    <mat-toolbar color="primary"  class="mat-elevation-z6">
+      <span *ngIf="sidenav.mode === 'over'">
+        <mat-icon (click)="toggleSidenav($event)">menu</mat-icon>&nbsp;
+      </span>
+      <span class="demo-toolbar"></span>
+      <img src="../../assets/images/InsulaLogo.png">  
+    </mat-toolbar>
+  </header>
